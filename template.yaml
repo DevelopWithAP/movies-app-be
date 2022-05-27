@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Parameters:
+  ApiKey:
+    Description: "ApiKey"
+    Type: "String"
+  AppSecret:
+    Description: "AppSecret"
+    Type: "String"
+  MongoUrl:
+    Description: "MongoUrl"
+    Type: "String"
+Description: >
+  kilo-movies-api
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  KiloMoviesApiFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./
+      Handler: lambda.handler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Environment:
+        Variables:
+          API_KEY: !Ref ApiKey
+          APP_SECRET: !Ref AppSecret
+          MONGO_URL: !Ref MongoUrl
+      Events:
+        KiloMoviesApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+    Metadata:
+      BuildMethod: makefile
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  KiloMoviesApiApi:
+    Description: "API Gateway endpoint URL for Prod stage for Kilo Movies API function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  KiloMoviesApiFunction:
+    Description: "Kilo Movies API Lambda Function ARN"
+    Value: !GetAtt KiloMoviesApiFunction.Arn
+  KiloMoviesApiFunctionIamRole:
+    Description: "Implicit IAM Role created for Kilo Movies API function"
+    Value: !GetAtt KiloMoviesApiFunctionRole.Arn
