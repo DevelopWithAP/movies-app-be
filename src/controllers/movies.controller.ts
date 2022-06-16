@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as data from '../movies.json';
-import { TmdbMovies } from 'types/domain';
 
 
 const getMovies = (_req: Request, res: Response): TmdbMovies | any =>  {

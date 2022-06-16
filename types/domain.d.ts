@@ -136,5 +136,4 @@ interface PaginatedMovies {
   docs: Movie[];
   totalPages: number;
 }
-
-export  { TmdbMovies }; 
+ 
