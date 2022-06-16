@@ -26,4 +26,5 @@ export const isLambdaRuntime = (): boolean => !!process.env.AWS_LAMBDA_FUNCTION_
 
 export const connectToMongoDb = (): void => {
   // The implementation will appear later
+  
 };
