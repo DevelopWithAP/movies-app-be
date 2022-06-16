@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import * as data from '../movies.json';
-import { TmdbMovie } from 'types/domain';
+import { TmdbMovies } from 'types/domain';
 
 
-const getMovies = (_req: Request, res: Response): TmdbMovie[] | any =>  {
+const getMovies = (_req: Request, res: Response): TmdbMovies | any =>  {
     try {
-        res.json(data.movies);
+        res.json(data);
     } catch (error) {
         throw new Error(`${error}`);
     }

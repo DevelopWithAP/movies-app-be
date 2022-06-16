@@ -137,4 +137,4 @@ interface PaginatedMovies {
   totalPages: number;
 }
 
-export  { TmdbMovies, TmdbMovie }; 
+export  { TmdbMovies }; 
