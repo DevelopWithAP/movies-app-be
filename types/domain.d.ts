@@ -136,3 +136,4 @@ interface PaginatedMovies {
   docs: Movie[];
   totalPages: number;
 }
+ 
