@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
-import * as data from '../movies.json';
+import * as movies from '../movies.json';
 import * as movie from '../movie.json';
 
 
-const getMovies = (_req: Request, res: Response): TmdbMovies | any =>  {
+const getMovies = async (_req: Request, res: Response): Promise<TmdbMovies | any> =>  {
     try {
-        res.json(data);
+        res.json(movies);
     } catch (error) {
         throw new Error(`${error}`);
     }
     
 };
 
-const getMovie = (_req: Request, res: Response): void => {
+const getMovie = async (_req: Request, res: Response): Promise<void> => {
     try {
         res.json(movie);
     } catch (error) {
