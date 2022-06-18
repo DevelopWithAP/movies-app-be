@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as data from '../movies.json';
+import * as movie from '../movie.json';
 
 
 const getMovies = (_req: Request, res: Response): TmdbMovies | any =>  {
@@ -11,4 +12,12 @@ const getMovies = (_req: Request, res: Response): TmdbMovies | any =>  {
     
 };
 
-export { getMovies };
+const getMovie = (_req: Request, res: Response): void => {
+    try {
+        res.json(movie);
+    } catch (error) {
+        throw new Error(`${error}`);
+    }
+}
+
+export { getMovies, getMovie };
