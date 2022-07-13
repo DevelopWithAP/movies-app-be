@@ -1,5 +1,5 @@
 const PREFIX: string = 'https://image.tmdb.org/t/p/w500';
-const MOVIES_PREFIX: string = 'https://image.tmdb.org/t/p/original'; 
+const ORIGINAL: string = 'https://image.tmdb.org/t/p/original'; 
 
 
 export const movieConverter = (tmdbMovie: TmdbMovie): Movie => {
@@ -41,7 +41,7 @@ const convertSpokenLang = (spokenLang: TmdbSpokenLanguage): SpokenLanguage => {
 export const convertToMovieDetails = (movieDetails: TmdbMovieDetails): MovieDetails => {
     return {
         ...movieConverter(movieDetails), 
-        backdropPath: `${MOVIES_PREFIX}/${movieDetails.backdrop_path}`,
+        backdropPath: `${ORIGINAL}/${movieDetails.backdrop_path}`,
         budget: movieDetails.budget,
         genres: movieDetails.genres,
         originalLanguage: movieDetails.original_language,
@@ -55,7 +55,7 @@ export const convertToMovieDetails = (movieDetails: TmdbMovieDetails): MovieDeta
         status: movieDetails.status,
         tagline: movieDetails.tagline,
         title: movieDetails.title,
-        posterPath: `${MOVIES_PREFIX}/${movieDetails.poster_path}`,
+        posterPath: `${ORIGINAL}/${movieDetails.poster_path}`,
         voteAverage: movieDetails.vote_average,
         voteCount: movieDetails.vote_count,
         releaseDate: movieDetails.release_date,
