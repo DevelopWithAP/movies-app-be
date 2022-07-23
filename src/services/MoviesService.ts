@@ -20,5 +20,5 @@ export const getMovies = async (): Promise<Movies> => {
         page: 1,
         movies: CachedMovies,
         totalPages: totalPagesCached || 1,
-    }
+    };
 };
