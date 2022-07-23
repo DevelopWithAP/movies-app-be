@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { moviesService } from '../services/MoviesService';
+import * as MoviesService from '../services/MoviesService';
 
 export const getMovies = async (_req: Request, res: Response, next: NextFunction): Promise<void> =>  {
     try {
-        res.json(await moviesService());
+        res.json(await MoviesService.getMovies());
     } catch (error) {
         next(error);
     } 
