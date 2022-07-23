@@ -6,7 +6,7 @@ const getMovies = async (_req: Request, res: Response, next: NextFunction): Prom
         let movies = await MoviesService.getMovies();
         res.json(movies);
     } catch (error) {
-        next();
+        next(error);
     } 
 };
 
