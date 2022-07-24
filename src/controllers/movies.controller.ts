@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as MoviesService from '../services/MoviesService';
+import * as MoviesService from '../services/movies.service';
 
 const getMovies = async (_req: Request, res: Response, next: NextFunction): Promise<TmdbMovies | any> =>  {
     try {
