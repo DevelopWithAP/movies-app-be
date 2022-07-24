@@ -1,7 +1,6 @@
 import axios from "axios";
 import { movieConverter } from '../converters/movie.converter';
 
-
 const API_KEY: string = process.env.API_KEY as string;
 const GET_MOVIES_API: string = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=1&vote_count.gte=1000&api_key=${API_KEY}`;
 
