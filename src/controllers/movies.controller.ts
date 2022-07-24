@@ -1,13 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import * as MoviesService from '../services/movies.service';
 
-const getMovies = async (_req: Request, res: Response, next: NextFunction): Promise<TmdbMovies | any> =>  {
+export const getMovies = async (_req: Request, res: Response, next: NextFunction): Promise<void> =>  {
     try {
-        let movies = await MoviesService.getMovies();
-        res.json(movies);
+        res.json(await MoviesService.getMovies());
     } catch (error) {
         next(error);
     } 
 };
-
-export { getMovies };
