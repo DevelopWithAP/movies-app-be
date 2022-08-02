@@ -38,4 +38,5 @@ export const getMovie = async (movieId: number): Promise<MovieDetails> => {
   
   movieDetailsCache[movieId] = convertToMovieDetails(data);
   return movieDetailsCache[movieId];
+
 };
