@@ -4,10 +4,11 @@ import helmet from 'helmet';
 import sanitize from 'express-mongo-sanitize';
 
 import { connectToMongoDb, CORS, isLambdaRuntime } from './commons';
-import healthRoutes from './routes/health.routes';
-import moviesRoutes from './routes/movies.routes';
 
 dotenv.config();
+
+import healthRoutes from './routes/health.routes';
+import moviesRoutes from './routes/movies.routes';
 
 if (!isLambdaRuntime()) {
   connectToMongoDb();
