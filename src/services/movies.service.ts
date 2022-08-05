@@ -1,42 +1,49 @@
-import axios from 'axios';
+import axios from "axios";
 import { movieConverter, convertToMovieDetails } from '../converters/movie.converter';
 
 const API_KEY: string = process.env.API_KEY as string;
-const GET_MOVIES_API_ENDPOINT: string = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=1&vote_count.gte=1000&api_key=${API_KEY}`;
 
 type MovieDetailsCache = {
   [movieId: number]: MovieDetails;
 };
 
+type MoviesCache = {
+  [page: number]: Movie[];
+  totalPages?: number;
+};
+
 const movieDetailsCache: MovieDetailsCache = {};
+const moviesCache: MoviesCache = {};
 
-export const getMovies = async (): Promise<Movies> => {
-  let cachedMovies: Movie[] | undefined;
-  let totalPagesCached: number | undefined;
+export const getMovies = async (page: number): Promise<Movies> => {
+  const GET_MOVIES_API_ENDPOINT: string = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
 
-  if (!cachedMovies) {
+  if (!moviesCache[page]) {
     const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
-    cachedMovies = data.results.map(movieConverter);
-    totalPagesCached = data.total_pages;
-  }
 
+    moviesCache[page] = [];
+    moviesCache.totalPages = data.total_pages;
+
+    const moviesArray: Movie[] = data?.results.map(movieConverter);
+    for (let movie of moviesArray) {
+      moviesArray.push(movie);
+    }
+  }
   return {
-    movies: cachedMovies || [],
-    totalPages: totalPagesCached || 1,
-    page: 1,
+    page,
+    totalPages: moviesCache.totalPages || 0,
+    movies: moviesCache[page]
   };
+
 };
 
 export const getMovie = async (movieId: number): Promise<MovieDetails> => {
-
   const GET_MOVIE_API_ENDPOINT: string = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
-  if (movieDetailsCache[movieId]) {
+  if(movieDetailsCache[movieId]) {
     return movieDetailsCache[movieId];
-  }
-
+  } 
   const { data } = await axios.get<TmdbMovieDetails>(GET_MOVIE_API_ENDPOINT);
-  
+
   movieDetailsCache[movieId] = convertToMovieDetails(data);
   return movieDetailsCache[movieId];
-
 };
