@@ -23,11 +23,12 @@ export const getMovies = async (page: number): Promise<Movies> => {
 
     moviesCache[page] = [];
     moviesCache.totalPages = data.total_pages;
-
-    const moviesArray: Movie[] = data?.results.map(movieConverter);
+ 
+    let moviesArray: Movie[] = data?.results.map(movieConverter);
     for (let movie of moviesArray) {
-      moviesArray.push(movie);
+      moviesCache[page].push(movie);
     }
+
 
   }
   return {
