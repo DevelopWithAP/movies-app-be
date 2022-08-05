@@ -29,7 +29,6 @@ export const getMovies = async (page: number): Promise<Movies> => {
       moviesCache[page].push(movie);
     }
 
-
   }
   return {
     page,
