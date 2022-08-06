@@ -33,7 +33,7 @@ export const getMovies = async (page: number): Promise<Movies> => {
   return {
     page,
     totalPages: moviesCache.totalPages || 0,
-    movies: moviesCache[page]
+    movies: moviesCache[page], 
   };
 
 };
