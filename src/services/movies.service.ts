@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AnyArray } from "mongoose";
 import { movieConverter, convertToMovieDetails } from '../converters/movie.converter';
 
 const API_KEY: string = process.env.API_KEY as string;
@@ -23,7 +24,7 @@ export const getMovies = async (page: number): Promise<Movies> => {
 
     moviesCache[page] = [];
     moviesCache.totalPages = data.total_pages;
- 
+
     let moviesArray: Movie[] = data?.results.map(movieConverter);
     for (let movie of moviesArray) {
       moviesCache[page].push(movie);
@@ -33,18 +34,30 @@ export const getMovies = async (page: number): Promise<Movies> => {
   return {
     page,
     totalPages: moviesCache.totalPages || 0,
-    movies: moviesCache[page], 
+    movies: moviesCache[page],
   };
 
 };
 
 export const getMovie = async (movieId: number): Promise<MovieDetails> => {
   const GET_MOVIE_API_ENDPOINT: string = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
-  if(movieDetailsCache[movieId]) {
+  if (movieDetailsCache[movieId]) {
     return movieDetailsCache[movieId];
-  } 
+  }
   const { data } = await axios.get<TmdbMovieDetails>(GET_MOVIE_API_ENDPOINT);
 
   movieDetailsCache[movieId] = convertToMovieDetails(data);
   return movieDetailsCache[movieId];
+};
+
+export const searchMoviesByTitle = async (title: string, page: number): Promise<Movies>  => {
+  const SEARCH_MOVIES_API_ENDPOINT: string = `https://api.themoviedb.org/3/search/movie?query=${title}&page=${page}&api_key=${API_KEY}`;
+
+  const { data } = await axios.get<TmdbMovies>(SEARCH_MOVIES_API_ENDPOINT);
+
+  return {
+    page: page,
+    totalPages: data?.total_pages,
+    movies: data.results.map(movieConverter),
+  };
 };
