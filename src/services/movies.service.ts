@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AnyArray } from "mongoose";
 import { movieConverter, convertToMovieDetails } from '../converters/movie.converter';
 
 const API_KEY: string = process.env.API_KEY as string;
