@@ -17,4 +17,13 @@ describe('Testing /movies endpoint', () => {
         expect(response.body.totalPages).toEqual(4);
         expect(response.body.movies).toBeInstanceOf(Array);
     });
+
+    const invalidMocktitle: string = '#$%Minion';
+    test(`GET to /movies?title=${invalidMocktitle} should respond with 200 OK`, async () => {
+
+        const response = await request(app).get(`/movies?title=${invalidMocktitle}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.totalPages).toBe(177);
+    });
 });
