@@ -28,7 +28,6 @@ export const getMovies = async (page: number): Promise<Movies> => {
     for (let movie of moviesArray) {
       moviesCache[page].push(movie);
     }
-
   }
   return {
     page,
