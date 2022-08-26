@@ -13,7 +13,7 @@ export const getMovies = async (req: Request, res: Response, next: NextFunction)
       res.json(await moviesService.searchMoviesByTitle(title, page));
     }
     else if (genres && validateGenres(genres)) {
-      res.json(await moviesService.filterMoviesByGenre(page, genres));
+      res.json(await moviesService.getMovies(page, genres))
     }
     else {
       res.json(await moviesService.getMovies(page));
