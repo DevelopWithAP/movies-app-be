@@ -1,0 +1,102 @@
+{
+    "page": 1,
+    "totalPages": 177,
+    "movies": [
+      {
+        "movieId": 616037,
+        "title": "Thor: Love and Thunder",
+        "releaseDate": "2022-07-06",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//vvObT0eIWGlArLQx3K5wZ0uT812.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+        "voteAverage": 6.8
+      },
+      {
+        "movieId": 766507,
+        "title": "Prey",
+        "releaseDate": "2022-08-02",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//7ZO9yoEU2fAHKhmJWfAc2QIPWJg.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//ujr5pztc1oitbe7ViMUOilFaJ7s.jpg",
+        "voteAverage": 8
+      },
+      {
+        "movieId": 361743,
+        "title": "Top Gun: Maverick",
+        "releaseDate": "2022-05-24",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//9n5e1vToDVnqz3hW10Jdlvmzpo0.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+        "voteAverage": 8.4
+      },
+      {
+        "movieId": 507086,
+        "title": "Jurassic World Dominion",
+        "releaseDate": "2022-06-01",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//jauI01vUIkPA0xVsamGj0Gs1nNL.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg",
+        "voteAverage": 7.1
+      },
+      {
+        "movieId": 438148,
+        "title": "Minions: The Rise of Gru",
+        "releaseDate": "2022-06-29",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//wKiOkZTN9lUUUNZLmtnwubZYONg.jpg",
+        "voteAverage": 7.7
+      },
+      {
+        "movieId": 756999,
+        "title": "The Black Phone",
+        "releaseDate": "2022-06-22",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//AfvIjhDu9p64jKcmohS4hsPG95Q.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//lr11mCT85T1JanlgjMuhs9nMht4.jpg",
+        "voteAverage": 8
+      },
+      {
+        "movieId": 453395,
+        "title": "Doctor Strange in the Multiverse of Madness",
+        "releaseDate": "2022-05-04",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+        "voteAverage": 7.5
+      },
+      {
+        "movieId": 718789,
+        "title": "Lightyear",
+        "releaseDate": "2022-06-15",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//nW5fUbldp1DYf2uQ3zJTUdachOu.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//ox4goZd956BxqJH6iLwhWPL9ct4.jpg",
+        "voteAverage": 7.3
+      },
+      {
+        "movieId": 634649,
+        "title": "Spider-Man: No Way Home",
+        "releaseDate": "2021-12-15",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//14QbnygCuTO0vl7CAFmPf1fgZfV.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//uJYYizSuA9Y3DCs0qS4qWvHfZg4.jpg",
+        "voteAverage": 8
+      },
+      {
+        "movieId": 675353,
+        "title": "Sonic the Hedgehog 2",
+        "releaseDate": "2022-03-30",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//8wwXPG22aNMpPGuXnfm3galoxbI.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//6DrHO1jr3qVrViUO6s6kFiAGM7.jpg",
+        "voteAverage": 7.7
+      },
+      {
+        "movieId": 725201,
+        "title": "The Gray Man",
+        "releaseDate": "2022-07-13",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//27Mj3rFYP3xqFy7lnz17vEd8Ms.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//13r1DFhfL0qufFjXnrvWuh6qKqH.jpg",
+        "voteAverage": 7
+      },
+      {
+        "movieId": 303857,
+        "title": "Dragon Ball Z: Resurrection 'F'",
+        "releaseDate": "2015-04-18",
+        "backdropPath": "https://image.tmdb.org/t/p/w500//kIgfFzjjBNgx6Tr2LCw8Zkq921s.jpg",
+        "posterPath": "https://image.tmdb.org/t/p/w500//soq3AxjALdBfdPAm8H7yuMmNL5Y.jpg",
+        "voteAverage": 6.8
+      }
+    ]
+}
