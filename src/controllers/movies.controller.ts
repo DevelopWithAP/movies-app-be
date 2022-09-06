@@ -8,15 +8,16 @@ export const getMovies = async (req: Request, res: Response, next: NextFunction)
     const page: number = Number(req.query.page) || 1;
     const title: string = req.query.title as string;
     const genres: string = req.query.genres as string;
+    const sort: string = req.query.sort as string;
 
     if (title && validate(title)) {
       res.json(await moviesService.searchMoviesByTitle(title, page));
     }
     else if (genres && validateGenres(genres)) {
-      res.json(await moviesService.getMovies(page, genres))
+      res.json(await moviesService.getMovies(page, genres));
     }
     else {
-      res.json(await moviesService.getMovies(page));
+      res.json(await moviesService.getMovies(page, sort));
     }
   } catch (error) {
     next(error);

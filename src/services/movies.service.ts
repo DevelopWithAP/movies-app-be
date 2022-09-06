@@ -3,6 +3,8 @@ import { movieConverter, convertToMovieDetails } from '../converters/movie.conve
 
 const API_KEY: string = process.env.API_KEY as string;
 
+const BASE_URL: string = `https://api.themoviedb.org/3/discover/movie?`;
+
 type MovieDetailsCache = {
   [movieId: number]: MovieDetails;
 };
@@ -17,7 +19,8 @@ const moviesCache: MoviesCache = {};
 
 export const getMovies = async (page: number, withGenres?: string): Promise<Movies> => {
   const genres = withGenres || '';
-  const GET_MOVIES_API_ENDPOINT: string = `https://api.themoviedb.org/3/discover/movie?with_genres=${genres}sort_by=popularity.desc&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+  
+  const GET_MOVIES_API_ENDPOINT: string = `${BASE_URL}sort_by=popularity.esc&with_genres=${genres}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
 
   if (!moviesCache[page]) {
     const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
@@ -60,3 +63,15 @@ export const searchMoviesByTitle = async (title: string, page: number): Promise<
     movies: data.results.map(movieConverter),
   };
 };
+
+export const filterMoviesByGenre = async (page: number, withGenres?: string): Promise<Movies> => {
+  const genresEndpoint = `${BASE_URL}with_genres=${withGenres || ''}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+
+  const { data } = await axios.get<TmdbMovies>(genresEndpoint);
+
+  return {
+    page,
+    totalPages: data.total_pages,
+    movies: data?.results.map(movieConverter)
+  };
+}
