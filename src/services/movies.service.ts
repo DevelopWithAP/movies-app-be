@@ -3,37 +3,46 @@ import { movieConverter, convertToMovieDetails } from '../converters/movie.conve
 
 const API_KEY: string = process.env.API_KEY as string;
 
+const BASE_URL: string = 'https://api.themoviedb.org/3/discover/movie?';
+
 type MovieDetailsCache = {
   [movieId: number]: MovieDetails;
 };
 
-type MoviesCache = {
-  [page: number]: Movie[];
-  totalPages?: number;
-};
+// type MoviesCache = {
+//   [key: string]: Movie[];
+//   totalPages?: number | any; 
+// };
 
 const movieDetailsCache: MovieDetailsCache = {};
-const moviesCache: MoviesCache = {};
+// const moviesCache: MoviesCache = {}
 
-export const getMovies = async (page: number, withGenres?: string): Promise<Movies> => {
-  const genres = withGenres || '';
-  const GET_MOVIES_API_ENDPOINT: string = `https://api.themoviedb.org/3/discover/movie?with_genres=${genres}sort_by=popularity.desc&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+export const getMovies = async (page: number, options?: { sorting?: string, genres?: string }): Promise<Movies> => {
 
-  if (!moviesCache[page]) {
-    const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
+  const genres = options?.genres || '';
+  const sort = options?.sorting || 'popularity.desc'; 
 
-    moviesCache[page] = [];
-    moviesCache.totalPages = data.total_pages;
+  const GET_MOVIES_API_ENDPOINT: string = `${BASE_URL}sort_by=${sort}&with_genres=${genres}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
 
-    let moviesArray: Movie[] = data?.results.map(movieConverter);
-    for (let movie of moviesArray) {
-      moviesCache[page].push(movie);
-    }
-  }
+  const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
+
+  // if (!moviesCache[page]) {
+
+  //   const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
+
+  //   moviesCache[page] = [];
+  //   moviesCache.totalPages= data.total_pages;
+
+  //   let moviesArray: Movie[] = data?.results.map(movieConverter);
+  //   for (let movie of moviesArray) {
+  //     moviesCache[page].push(movie);
+  //   }
+  // }
+
   return {
     page,
-    totalPages: moviesCache.totalPages || 0,
-    movies: moviesCache[page],
+    totalPages: data?.total_pages || 0,
+    movies: data?.results.map(movieConverter),
   };
 
 };
@@ -58,5 +67,32 @@ export const searchMoviesByTitle = async (title: string, page: number): Promise<
     page: page,
     totalPages: data?.total_pages,
     movies: data.results.map(movieConverter),
+  };
+};
+
+export const filterByGenre = async (page: number, withGenres: string): Promise<Movies> => {
+  const genres_endpoint = `${BASE_URL}sort_by=popularity.desc&with_genres=${withGenres || ''}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+
+  const { data } = await axios.get<TmdbMovies>(genres_endpoint);
+
+  return {
+    page,
+    totalPages: data?.total_pages,
+    movies: data?.results.map(movieConverter),
+  };
+
+};
+
+export const sortMovies = async (page: number, sortBy?: string): Promise<Movies> => {
+  const sort = sortBy || 'popularity.desc';
+
+  const SORT_MOVIES_ENDPOINT = `${BASE_URL}sort_by=${sort}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+
+  const { data } = await axios.get<TmdbMovies>(SORT_MOVIES_ENDPOINT);
+
+  return {
+    page,
+    totalPages: data.total_pages,
+    movies: data?.results.map(movieConverter),
   };
 };
