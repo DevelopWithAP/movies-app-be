@@ -11,18 +11,18 @@ export const getMovies = async (req: Request, res: Response, next: NextFunction)
     const genres: string = req.query.genres as string;
     const sort: string = req.query.sort as string;
 
-    let genreParams: string;
-    if (validateGenres(genres)) {
-      genreParams = genres;
-    } else {
-      genreParams = '';
-    }
-
     let sortParams: string;
     if (validateSortOptions(sort)) {
       sortParams = sort;
     } else {
       sortParams = 'popularity.desc';
+    }
+
+    let genreParams: string;
+    if (validateGenres(genres)) {
+      genreParams = genres;
+    } else {
+      genreParams = '';
     }
 
     if (title && validate(title)) {

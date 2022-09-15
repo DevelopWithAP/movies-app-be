@@ -18,9 +18,8 @@ const movieDetailsCache: MovieDetailsCache = {};
 // const moviesCache: MoviesCache = {}
 
 export const getMovies = async (page: number, options?: { sorting?: string, genres?: string }): Promise<Movies> => {
-
   const genres = options?.genres || '';
-  const sort = options?.sorting || 'popularity.desc'; 
+  const sort = options?.sorting || 'popularity.desc';
 
   const GET_MOVIES_API_ENDPOINT: string = `${BASE_URL}sort_by=${sort}&with_genres=${genres}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
 
@@ -67,32 +66,5 @@ export const searchMoviesByTitle = async (title: string, page: number): Promise<
     page: page,
     totalPages: data?.total_pages,
     movies: data.results.map(movieConverter),
-  };
-};
-
-export const filterByGenre = async (page: number, withGenres: string): Promise<Movies> => {
-  const genres_endpoint = `${BASE_URL}sort_by=popularity.desc&with_genres=${withGenres || ''}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
-
-  const { data } = await axios.get<TmdbMovies>(genres_endpoint);
-
-  return {
-    page,
-    totalPages: data?.total_pages,
-    movies: data?.results.map(movieConverter),
-  };
-
-};
-
-export const sortMovies = async (page: number, sortBy?: string): Promise<Movies> => {
-  const sort = sortBy || 'popularity.desc';
-
-  const SORT_MOVIES_ENDPOINT = `${BASE_URL}sort_by=${sort}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
-
-  const { data } = await axios.get<TmdbMovies>(SORT_MOVIES_ENDPOINT);
-
-  return {
-    page,
-    totalPages: data.total_pages,
-    movies: data?.results.map(movieConverter),
   };
 };
