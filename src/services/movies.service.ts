@@ -9,13 +9,13 @@ type MovieDetailsCache = {
   [movieId: number]: MovieDetails;
 };
 
-// type MoviesCache = {
-//   [key: string]: Movie[];
-//   totalPages?: number | any; 
-// };
+type MoviesCache = {
+  [key: string]: Movie[];
+  totalPages?: number | any; 
+};
 
 const movieDetailsCache: MovieDetailsCache = {};
-// const moviesCache: MoviesCache = {}
+const moviesCache: MoviesCache = {}
 
 export const getMovies = async (page: number, options?: { sorting?: string, genres?: string }): Promise<Movies> => {
   const genres = options?.genres || '';
@@ -25,23 +25,23 @@ export const getMovies = async (page: number, options?: { sorting?: string, genr
 
   const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
 
-  // if (!moviesCache[page]) {
+  if (!moviesCache[page]) {
 
-  //   const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
+    const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
 
-  //   moviesCache[page] = [];
-  //   moviesCache.totalPages= data.total_pages;
+    moviesCache[page] = [];
+    moviesCache.totalPages= data.total_pages;
 
-  //   let moviesArray: Movie[] = data?.results.map(movieConverter);
-  //   for (let movie of moviesArray) {
-  //     moviesCache[page].push(movie);
-  //   }
-  // }
+    let moviesArray: Movie[] = data?.results.map(movieConverter);
+    for (let movie of moviesArray) {
+      moviesCache[page].push(movie);
+    }
+  }
 
   return {
     page,
     totalPages: data?.total_pages || 0,
-    movies: data?.results.map(movieConverter),
+    movies: moviesCache[page],
   };
 
 };
@@ -68,3 +68,15 @@ export const searchMoviesByTitle = async (title: string, page: number): Promise<
     movies: data.results.map(movieConverter),
   };
 };
+
+export const filterMoviesByGenre = async (page: number, withGenres?: string): Promise<Movies> => {
+  const genresEndpoint = `${BASE_URL}with_genres=${withGenres || ''}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+
+  const { data } = await axios.get<TmdbMovies>(genresEndpoint);
+
+  return {
+    page,
+    totalPages: data.total_pages,
+    movies: data?.results.map(movieConverter)
+  };
+}
