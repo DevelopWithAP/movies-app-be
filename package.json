@@ -39,6 +39,8 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "7.5.0",
+    "@shelf/jest-mongodb": "4.1.0",
     "@types/aws-lambda": "8.10.83",
     "@types/aws-serverless-express": "3.3.5",
     "@types/axios": "0.14.0",
