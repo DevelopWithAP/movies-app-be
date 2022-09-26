@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as moviesService from '../services/movies.service';
 import { validate } from '../validators/title.validator';
 import { validateGenres } from '../validators/genre.validator';
-import { validateSortOptions } from '../validators/sort-option.validator';
+
 
 export const getMovies = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -11,27 +11,15 @@ export const getMovies = async (req: Request, res: Response, next: NextFunction)
     const genres: string = req.query.genres as string;
     const sort: string = req.query.sort as string;
 
-    let sortParams: string;
-    if (validateSortOptions(sort)) {
-      sortParams = sort;
-    } else {
-      sortParams = 'popularity.desc';
-    }
-
-    let genreParams: string;
-    if (validateGenres(genres)) {
-      genreParams = genres;
-    } else {
-      genreParams = '';
-    }
-
     if (title && validate(title)) {
       res.json(await moviesService.searchMoviesByTitle(title, page));
     }
-    else {
-      res.json(await moviesService.getMovies(page, { sorting: sortParams, genres: genreParams }));
+    else if (genres && validateGenres(genres)) {
+      res.json(await moviesService.getMovies(page, genres));
     }
-
+    else {
+      res.json(await moviesService.getMovies(page, sort));
+    }
   } catch (error) {
     next(error);
   }

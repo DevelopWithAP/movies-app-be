@@ -17,11 +17,10 @@ type MoviesCache = {
 const movieDetailsCache: MovieDetailsCache = {};
 const moviesCache: MoviesCache = {}
 
-export const getMovies = async (page: number, options?: { sorting?: string, genres?: string }): Promise<Movies> => {
-  const genres = options?.genres || '';
-  const sort = options?.sorting || 'popularity.desc';
+export const getMovies = async (page: number, withGenres?: string): Promise<Movies> => {
+  const genres = withGenres || '';
 
-  const GET_MOVIES_API_ENDPOINT: string = `${BASE_URL}sort_by=${sort}&with_genres=${genres}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
+  const GET_MOVIES_API_ENDPOINT: string = `${BASE_URL}sort_by=popularity.desc&with_genres=${genres}&page=${page}&vote_count.gte=1000&api_key=${API_KEY}`;
 
   const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
 
