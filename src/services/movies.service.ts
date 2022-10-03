@@ -29,7 +29,7 @@ export const getMovies = async (page: number, withGenres?: string): Promise<Movi
     const { data } = await axios.get<TmdbMovies>(GET_MOVIES_API_ENDPOINT);
 
     moviesCache[page] = [];
-    moviesCache.totalPages= data.total_pages;
+    moviesCache.totalPages = data.total_pages;
 
     let moviesArray: Movie[] = data?.results.map(movieConverter);
     for (let movie of moviesArray) {
