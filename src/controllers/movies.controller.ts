@@ -3,6 +3,7 @@ import * as moviesService from '../services/movies.service';
 import { validate } from '../validators/title.validator';
 import { validateGenres } from '../validators/genre.validator';
 
+
 export const getMovies = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const page: number = Number(req.query.page) || 1;
