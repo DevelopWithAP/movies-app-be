@@ -26,6 +26,7 @@ export const validate = (validations: ValidationChain[]) => {
 export const isLambdaRuntime = (): boolean => !!process.env.AWS_LAMBDA_FUNCTION_NAME;
 
 export const connectToMongoDb = (): void => {
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const connectionOptions: any = {
     useNewUrlParser: true,
